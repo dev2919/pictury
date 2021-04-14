@@ -108,17 +108,26 @@ function getSearchBar(){
 					overflow: hidden;
 
 				}
-
+				.pic-box{
+					position: relative;
+				}
 				.figure img {
 					opacity: 1;
 					-webkit-transition: .3s ease-in-out;
 					transition: .3s ease-in-out;
+					position: relative;
 				}
 
 				.figure:hover img {
 					opacity: .5;
 					cursor: pointer;
 					text-decoration: underline
+				}
+				.url-copy-notif{
+					display: none;
+				}
+				.figure:active .url-copy-notif{
+					display: block;
 				}
 				.credit-footer{
 					padding:8px
@@ -240,16 +249,20 @@ function getImageHTML(imageSource, credits,username){
 		<span class="figure">
 			<img style="width:300px;height:300px;"  src="${imageSource}" 
 				onmouseover="AttributeCredits('${imageSource}')"
-				onclick="Copy_Picture_URL('${imageSource}')" 
+				onclick="Copy_Picture_URL('${imageSource}')"
 				ondblclick="Download('${imageSource}')" 
-				class="image" > </img> 
-				</br>
-				<div class="credit-footer">
+				class="image" > 
+			</img>
+			<div class="url-copy-notif">
+				Picture URL Copied!
+			</div>
+		</br>
+			<div class="credit-footer">
 				Photo by 
 				<a href="https://unsplash.com/@${username}?utm_source=picturye&utm_medium=referral">${credits}</a> 
 				on 
 				<a href="https://unsplash.com/?utm_source=picturye&utm_medium=referral">Unsplash</a>
-				</div>
+			</div>
 		</span>\n
 	`;
 	return html;
@@ -325,7 +338,6 @@ function getSearchResult(pictures_urls, searchQuery, i, credits) {
 		<body>
 		<script>
 		var vscode=acquireVsCodeApi(); // initialize the VsCodeApi that is used to communicate between the extension and the webview
-
 
 		function Copy_Picture_URL(txt) {
 			const el = document.createElement('textarea');
